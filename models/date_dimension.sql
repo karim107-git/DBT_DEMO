@@ -25,6 +25,8 @@ WHEN DAYNAME(TO_TIMESTAMP(STARTED_AT)) in ('Sat','Sun') then 'Fin de semaine'
 else 'Jours de semaine'
 end as Type_Date,
 
+{{day_type('STARTED_AT')}} AS DateType,
+
 QUARTER(TO_TIMESTAMP(STARTED_AT)) AS QUARTER_Y,
 
 CASE 
@@ -47,16 +49,25 @@ WHEN ((MONTH(TO_TIMESTAMP(STARTED_AT)) = 6 AND  DAY(TO_TIMESTAMP(STARTED_AT))>= 
 OR (MONTH(TO_TIMESTAMP(STARTED_AT)) IN (7,8)) 
 OR (MONTH(TO_TIMESTAMP(STARTED_AT)) = 9 AND  DAY(TO_TIMESTAMP(STARTED_AT)) <=  20))  THEN 'Summer'
 
-ELSE 'Fall/Automn' END AS Season
+ELSE 'Fall/Automn' END AS Season,
+
+{#{{funDate('STARTED_AT')}} AS P_F #}
+
+{{ funSeason("STARTED_AT") }} AS Season2
+
+
+
 
 from 
 {{ source('demo', 'BIKE') }}
 
 WHERE   TRY_TO_TIMESTAMP(STARTED_AT) IS NOT NULL
-AND DAYOFWEEK(TRY_TO_TIMESTAMP(STARTED_AT)) IN (0,6)
+--AND DAYOFWEEK(TRY_TO_TIMESTAMP(STARTED_AT)) IN (0,6)
 
 )
 
 SELECT 
 *
 FROM CTE
+
+
