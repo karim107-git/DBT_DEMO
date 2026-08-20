@@ -1,3 +1,8 @@
+-- Materialization for a model
+--{{config(Materialization='table')}}
+
+
+
 WITH DAILY_WEATHER AS (
 
 SELECT 
@@ -10,7 +15,6 @@ CLOUDS
 
 FROM {{source("demo","WEATHER")}}
 
-LIMIT 20
 
 ),
 DAILY_WEATHER_AGG AS (
