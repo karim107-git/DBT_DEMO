@@ -59,7 +59,7 @@ ELSE 'Fall/Automn' END AS Season,
 
 
 from 
-{{ source('demo', 'BIKE') }}
+{{ ref('stg_bike') }}
 
 WHERE   TRY_TO_TIMESTAMP(STARTED_AT) IS NOT NULL
 --AND DAYOFWEEK(TRY_TO_TIMESTAMP(STARTED_AT)) IN (0,6)

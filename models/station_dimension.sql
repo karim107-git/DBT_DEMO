@@ -5,8 +5,8 @@ START_STATION_ID,
 START_STATION_NAME,
 START_LAT,
 START_LNG
-FROM {{ source('demo', 'BIKE') }}
-WHERE RIDE_ID <> 'ride_id'
+FROM {{ ref('stg_bike') }}
+--WHERE RIDE_ID <> 'ride_id'
 
 )
 
