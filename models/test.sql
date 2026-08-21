@@ -1,3 +1,5 @@
-select *
-from {{ source('demo', 'bike') }}
-limit 10
+SELECT DISTINCT STARTED_AT
+FROM {{ source('demo', 'BIKE') }}
+WHERE STARTED_AT  != 'started_at' AND
+TRY_TO_TIMESTAMP(STARTED_AT) IS NULL
+  AND STARTED_AT IS NOT NULL
